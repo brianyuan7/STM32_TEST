@@ -28,8 +28,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
-
+#include "stm32f4xx.h"
 
 /** @addtogroup Template_Project
   * @{
@@ -168,33 +167,61 @@ void PendSV_Handler(void)
   * @param  
   * @retval
   ***************************************************************************/
+
+#define DMA_USART1_RX_MAX_SIZE 100
+extern char dma_usart1_rx_buffer[DMA_USART1_RX_MAX_SIZE];
+int16_t UART1_DMA_RX_Index;
+uint8_t g_rx1_data_ready = 0;
+
 void USART1_IRQHandler(void)
 {
-	u8 usart_rx1 = 0;
-	if(USART_GetFlagStatus(USART1,USART_FLAG_RXNE)==SET)
+	uint16_t temp = 0;
+	if (USART_GetFlagStatus(USART1,USART_FLAG_IDLE) == SET)
 	{
-	USART_ClearFlag(USART1,USART_FLAG_RXNE);
-	usart_rx1 = USART_ReceiveData(USART1);	 
-	} 
+		DMA_Cmd(DMA2_Stream5, DISABLE);
+		temp = USART1->SR;//To clear IDLE, read SR and then DR
+		temp = USART1->DR;
+		UART1_DMA_RX_Index = DMA_USART1_RX_MAX_SIZE - DMA_GetCurrDataCounter(DMA2_Stream5); // Get the number of remaining data units for DMA Stream
+		
+		if (UART1_DMA_RX_Index >= 0)//Enough remaining units
+		{
+			DMA_ClearFlag(DMA2_Stream5,DMA_FLAG_TCIF5 | DMA_FLAG_FEIF5 | DMA_FLAG_DMEIF5 | DMA_FLAG_TEIF5 | DMA_FLAG_HTIF5);
+			DMA_SetCurrDataCounter(DMA2_Stream5, DMA_USART1_RX_MAX_SIZE);
+			DMA_Cmd(DMA2_Stream5, ENABLE); 
+			g_rx1_data_ready = 1;
+		}
+
+	}
+	
 }
 
+void DMA2_Stream7_IRQHandler(void)
+{
+	if(DMA_GetFlagStatus(DMA2_Stream7,DMA_FLAG_TCIF7)!=RESET)
+	{ 
+		DMA_ClearFlag(DMA2_Stream7,DMA_FLAG_TCIF7);
+	}
+	DMA_Cmd(DMA2_Stream7, DISABLE); 
+}
 
 /*****************************************************************************
   * @brief   KEY中断
   * @param  
   * @retval  
   ***************************************************************************/
-u8 KEY1VAL=0,KEY2VAL=0;
+uint8_t g_key1_flag = 0;
+uint8_t g_key2_flag = 0;
+
 void EXTI9_5_IRQHandler(void)
 {
 	if(EXTI_GetITStatus(EXTI_Line5)!=RESET)   
 	{
-		KEY1VAL++;		
-		EXTI_ClearITPendingBit(EXTI_Line5); //clearitdepending就可以 	  
+		g_key1_flag = !g_key1_flag;		
+		EXTI_ClearITPendingBit(EXTI_Line5); //clearitdepending
 	}
 	else if(EXTI_GetITStatus(EXTI_Line9)!=RESET) 
 	{
-		KEY2VAL++;
+		g_key2_flag = !g_key2_flag;
 		EXTI_ClearITPendingBit(EXTI_Line9); 
 	}
 }

@@ -34,3 +34,4 @@
 .\objects\main.o: ..\Driver\KEY.h
 .\objects\main.o: ..\Driver\USART.h
 .\objects\main.o: ..\Driver\LED.h
+.\objects\main.o: C:\ProgramC\Keil\ARM\ARMCC\Bin\..\include\string.h

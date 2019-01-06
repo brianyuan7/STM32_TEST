@@ -765,7 +765,7 @@ ARM Macro Assembler    Page 12
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\startup_stm32f411xe.d -o.\objects\startup_stm32f411xe
-.o -IC:\Users\Ruihan\Documents\WORKSPACE_2019\stm32_test\usart_test\Project\RTE
+.o -IC:\Users\Ruihan\Documents\WORKSPACE_2019\STM32_TEST\usart_test\Project\RTE
  -IC:\ProgramC\Keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include -IC:\ProgramC\Keil\A
 RM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --pr
 edefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 515" --predefin

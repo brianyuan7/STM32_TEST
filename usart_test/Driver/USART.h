@@ -4,8 +4,13 @@
 #include "stm32f4xx.h"
 #include <stdio.h>
 
-void USART1_Init(u32 Baud);
-int fputc(int ch, FILE *f);
+void USART1_Init(uint32_t Baud);
 
+void DMA_USART1_Init(void);
+void DMA_Send_Data_Proc(DMA_Stream_TypeDef *DMA_Streamx,uint16_t ndtr);
+void DMA_USART1_Send_One_Byte(char byte);
+void DMA_USART1_Send_Bytes(char* buffer, uint16_t size);
+
+int fputc(int ch, FILE *f);
 #endif
 
