@@ -1,9 +1,8 @@
 #include "usart.h"
 #include "stm32f4xx_dma.h"
 
-#define DMA_USART1_TX_MAX_SIZE 100
+
 char dma_usart1_tx_buffer[DMA_USART1_TX_MAX_SIZE];
-#define DMA_USART1_RX_MAX_SIZE 100
 char dma_usart1_rx_buffer[DMA_USART1_RX_MAX_SIZE];
 
 void USART1_Init(uint32_t Baud)

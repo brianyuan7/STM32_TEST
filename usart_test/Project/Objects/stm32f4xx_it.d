@@ -28,3 +28,5 @@
 .\objects\stm32f4xx_it.o: ..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h
 .\objects\stm32f4xx_it.o: ..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
 .\objects\stm32f4xx_it.o: ..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_flash_ramfunc.h
+.\objects\stm32f4xx_it.o: ..\Driver\usart.h
+.\objects\stm32f4xx_it.o: C:\ProgramC\Keil\ARM\ARMCC\Bin\..\include\stdio.h

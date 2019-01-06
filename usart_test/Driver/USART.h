@@ -4,6 +4,9 @@
 #include "stm32f4xx.h"
 #include <stdio.h>
 
+#define DMA_USART1_TX_MAX_SIZE 100
+#define DMA_USART1_RX_MAX_SIZE 100
+
 void USART1_Init(uint32_t Baud);
 
 void DMA_USART1_Init(void);

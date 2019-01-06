@@ -29,7 +29,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx.h"
-
+#include "usart.h"
 /** @addtogroup Template_Project
   * @{
   */
@@ -167,8 +167,6 @@ void PendSV_Handler(void)
   * @param  
   * @retval
   ***************************************************************************/
-
-#define DMA_USART1_RX_MAX_SIZE 100
 extern char dma_usart1_rx_buffer[DMA_USART1_RX_MAX_SIZE];
 int16_t UART1_DMA_RX_Index;
 uint8_t g_rx1_data_ready = 0;

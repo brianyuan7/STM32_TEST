@@ -9,11 +9,9 @@ extern uint8_t g_key1_flag;
 extern uint8_t g_key2_flag;
 extern uint8_t g_rx1_data_ready;
 	
-#define TX_LEN 50
-char str1_welcome[TX_LEN] = {"KEY1, DMA2 CH4 Stream7!"};
-char str2_welcome[TX_LEN] = {"KEY2, DMA!"};
+char str1_welcome[DMA_USART1_TX_MAX_SIZE] = {"KEY1, DMA2 CH4 Stream7!"};
+char str2_welcome[DMA_USART1_TX_MAX_SIZE] = {"KEY2, DMA!"};
 
-#define DMA_USART1_RX_MAX_SIZE 100
 extern char dma_usart1_rx_buffer[DMA_USART1_RX_MAX_SIZE];
 
 /*****************************************************************************
@@ -44,14 +42,14 @@ int main(void)
 		if (1U == g_key1_flag)
 		{
 			printf("\r\nTX: ");
-			DMA_USART1_Send_Bytes(str1_welcome, TX_LEN);
+			DMA_USART1_Send_Bytes(str1_welcome, DMA_USART1_TX_MAX_SIZE);
 			g_key1_flag = 0;
 			LED_YELLOW_ON;
 		}
 		else if (1U == g_key2_flag)
 		{
 			printf("\r\nTX: ");
-			DMA_USART1_Send_Bytes(str2_welcome, TX_LEN);
+			DMA_USART1_Send_Bytes(str2_welcome, DMA_USART1_TX_MAX_SIZE);
 			g_key2_flag = 0;
 			LED_BLUE_ON;			
 		}
